@@ -4,13 +4,13 @@ import { hydrateRoot } from 'react-dom/client';
 import ClientApp from '../components/ClientApp';
 import { WINDOW_GLOBAL_PARAMS } from '../utils/constants';
 import { createComponentName } from '../utils/helper';
-import voltranConfig from '../../../voltran.config';
+import piramiteConfig from '../../../piramite.config';
 
 const getStaticProps = () => {
   const staticProps = {};
 
-  if (voltranConfig.staticProps) {
-    voltranConfig.staticProps.map(property => {
+  if (piramiteConfig.staticProps) {
+    piramiteConfig.staticProps.map(property => {
       staticProps[property.name] = property.value;
     });
   }
@@ -20,7 +20,7 @@ const getStaticProps = () => {
 
 const withBaseComponent = (PageComponent, pathName) => {
   const componentName = createComponentName(pathName);
-  const prefix = voltranConfig.prefix.toUpperCase();
+  const prefix = piramiteConfig.prefix.toUpperCase();
 
   if (process.env.BROWSER && window[prefix] && window[prefix][componentName.toUpperCase()]) {
     const fragments = window[prefix][componentName.toUpperCase()];
@@ -29,7 +29,7 @@ const withBaseComponent = (PageComponent, pathName) => {
 
     Object.keys(fragments).forEach(id => {
       const componentEl = document.getElementById(`${componentName}_${id}`);
-      const isHydrated = componentEl && !!componentEl.getAttribute('voltran-hydrated');
+      const isHydrated = componentEl && !!componentEl.getAttribute('piramite-hydrated');
 
       if (isHydrated || !componentEl) return;
 
@@ -59,7 +59,7 @@ function HydratedClientApp({ PageComponent, staticProps, initialState, history, 
     const el = componentEl;
     if (el) {
       el.style.pointerEvents = 'auto';
-      el.setAttribute('voltran-hydrated', 'true');
+      el.setAttribute('piramite-hydrated', 'true');
     }
   }, [componentEl]);
   return (

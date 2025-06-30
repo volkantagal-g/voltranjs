@@ -4,11 +4,11 @@ const {merge} = require('webpack-merge');
 const nodeExternals = require('webpack-node-externals');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
-const env = process.env.VOLTRAN_ENV || 'local';
+const env = process.env.PIRAMITE_ENV || 'local';
 
-const voltranConfig = require('./voltran.config');
+const piramiteConfig = require('./piramite.config');
 
-const appConfigFilePath = `${voltranConfig.appConfigFile.entry}/${env}.conf.js`;
+const appConfigFilePath = `${piramiteConfig.appConfigFile.entry}/${env}.conf.js`;
 const appConfig = require(appConfigFilePath); // eslint-disable-line import/no-dynamic-require
 
 const commonConfig = require('./webpack.common.config');
@@ -16,20 +16,20 @@ const postCssConfig = require('./postcss.config');
 const packageJson = require(path.resolve(process.cwd(), 'package.json'));
 const replaceString = require('./config/string.js');
 
-const distFolderPath = voltranConfig.distFolder;
-const isDebug = voltranConfig.dev;
+const distFolderPath = piramiteConfig.distFolder;
+const isDebug = piramiteConfig.dev;
 
 let styles = '';
 
-for (let i = 0; i < voltranConfig.styles.length; i++) {
-  styles += `require('${voltranConfig.styles[i]}');`;
+for (let i = 0; i < piramiteConfig.styles.length; i++) {
+  styles += `require('${piramiteConfig.styles[i]}');`;
 }
-const voltranServerConfigPath = voltranConfig.webpackConfiguration.server;
-const voltranServerConfig = voltranServerConfigPath
-  ? require(voltranConfig.webpackConfiguration.server)
+const piramiteServerConfigPath = piramiteConfig.webpackConfiguration.server;
+const piramiteServerConfig = piramiteServerConfigPath
+  ? require(piramiteConfig.webpackConfiguration.server)
   : '';
 
-const serverConfig = merge(commonConfig, voltranServerConfig, {
+const serverConfig = merge(commonConfig, piramiteServerConfig, {
   name: 'server',
 
   target: 'node',
@@ -41,8 +41,8 @@ const serverConfig = merge(commonConfig, voltranServerConfig, {
   },
 
   output: {
-    path: voltranConfig.output.server.path,
-    filename: voltranConfig.output.server.filename,
+    path: piramiteConfig.output.server.path,
+    filename: piramiteConfig.output.server.filename,
     libraryTarget: 'commonjs2',
   },
 
@@ -56,7 +56,7 @@ const serverConfig = merge(commonConfig, voltranServerConfig, {
       {
         test: /\.(js|jsx|mjs)$/,
         loader: 'esbuild-loader',
-        include: [path.resolve(__dirname, 'src'), voltranConfig.inputFolder],
+        include: [path.resolve(__dirname, 'src'), piramiteConfig.inputFolder],
         options: {
           loader: 'jsx',
           target: 'es2015',
@@ -77,8 +77,8 @@ const serverConfig = merge(commonConfig, voltranServerConfig, {
             options: {
               modules: {
                 localIdentName: appConfig.isCssClassNameObfuscationEnabled
-                  ? `${voltranConfig.prefix}-[name]-[hash:base64]`
-                  : `${voltranConfig.prefix}-[path][name]__[local]`,
+                  ? `${piramiteConfig.prefix}-[name]-[hash:base64]`
+                  : `${piramiteConfig.prefix}-[path][name]__[local]`,
                 localIdentHashSalt: packageJson.name,
                 exportOnlyLocals: true,
               },
@@ -93,13 +93,13 @@ const serverConfig = merge(commonConfig, voltranServerConfig, {
           {
             loader: 'sass-loader',
           },
-          ...(voltranConfig.sassResources
+          ...(piramiteConfig.sassResources
             ? [
               {
                 loader: 'sass-resources-loader',
                 options: {
                   sourceMap: false,
-                  resources: voltranConfig.sassResources,
+                  resources: piramiteConfig.sassResources,
                 },
               },
             ]

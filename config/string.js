@@ -3,34 +3,34 @@ const path = require('path');
 const normalizeUrl = require('../lib/os.js');
 const getStyles = require('./styles.js');
 
-const voltranConfig = require('../voltran.config');
+const piramiteConfig = require('../piramite.config');
 
-const prometheusFile = voltranConfig.monitoring.prometheus;
+const prometheusFile = piramiteConfig.monitoring.prometheus;
 
 function replaceString() {
   const data = [
     {
       search: '__V_COMPONENTS__',
-      replace: normalizeUrl(voltranConfig.routing.components),
+      replace: normalizeUrl(piramiteConfig.routing.components),
       flags: 'g'
     },
     {
       search: '__APP_CONFIG__',
-      replace: normalizeUrl(`${voltranConfig.appConfigFile.output.path}/${voltranConfig.appConfigFile.output.name}.js`),
+      replace: normalizeUrl(`${piramiteConfig.appConfigFile.output.path}/${piramiteConfig.appConfigFile.output.name}.js`),
       flags: 'g'
     },
     {
       search: '__ASSETS_FILE_PATH__',
-      replace: normalizeUrl(`${voltranConfig.inputFolder}/assets.json`),
+      replace: normalizeUrl(`${piramiteConfig.inputFolder}/assets.json`),
       flags: 'g'
     },
     {
       search: '__V_DICTIONARY__',
-      replace: normalizeUrl(voltranConfig.routing.dictionary),
+      replace: normalizeUrl(piramiteConfig.routing.dictionary),
       flags: 'g'
     },
     {
-      search: '@voltran/core',
+      search: '@piramite/core',
       replace: normalizeUrl(path.resolve(__dirname, '../src/index')),
       flags: 'g'
     },

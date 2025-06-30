@@ -1,7 +1,7 @@
-import voltranConfig from '../../../voltran.config';
+import piramiteConfig from '../../../piramite.config';
 
 function generateInitialState(initialState, componentName) {
-  const prefix = voltranConfig.prefix.toUpperCase();
+  const prefix = piramiteConfig.prefix.toUpperCase();
   const include = `window.${prefix}.${componentName.toUpperCase().replace(/['"]+/g, '')}`;
 
   return `
@@ -38,7 +38,7 @@ function Html({
       <div
         id='${componentName.replace(/['"']+/g, '')}_${initialState.id}'
         style="pointer-events: none;"
-        class="${voltranConfig.prefix}-voltran-body voltran-body ${
+        class="${piramiteConfig.prefix}-piramite-body piramite-body ${
     isMobileFragment ? 'mobile' : ''
   }${fullWidth ? 'full' : ''} ${componentClassName(componentName, context)}">
         ${children}

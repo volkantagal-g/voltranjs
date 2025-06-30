@@ -1,10 +1,10 @@
 {
-  "name": "voltranjs",
-  "version": "1.1.11",
+  "name": "piramitejs",
+  "version": "1.0.0",
   "main": "src/index.js",
   "author": "",
   "bin": {
-    "voltran": "./bin/voltran.js"
+    "piramite": "./bin/piramite.js"
   },
   "engines": {
     "node": ">= 10.15.0",
@@ -118,8 +118,8 @@
     "lint": "npm run eslint && npm run prettier",
     "eslint": "eslint 'src/**/*.js' --fix",
     "prettier": "prettier --write 'src/**/*.{js,scss}' --config .prettierrc.json",
-    "start": "voltran --config ./demo/voltran-app.config.js --dev",
-    "serve": "voltran --config ./demo/voltran-app.config.js",
+    "start": "piramite --config ./demo/piramite-app.config.js --dev",
+    "serve": "piramite --config ./demo/piramite-app.config.js",
     "test": "jest",
     "test:watchAll": "jest --watchAll",
     "test:coverage": "jest --coverage",

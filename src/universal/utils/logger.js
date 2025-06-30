@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-const application = 'voltran';
+const application = 'piramite';
 const currentThread = 'event-loop';
 const sourceContext = 'app';
 
@@ -9,7 +9,7 @@ const logger = {
   },
 
   info(message) {
-    if (process.env.BROWSER && process.env.VOLTRAN_ENV === 'prod') {
+    if (process.env.BROWSER && process.env.PIRAMITE_ENV === 'prod') {
       return;
     }
 
@@ -17,7 +17,7 @@ const logger = {
   },
 
   error(message) {
-    if (process.env.BROWSER && process.env.VOLTRAN_ENV === 'prod') {
+    if (process.env.BROWSER && process.env.PIRAMITE_ENV === 'prod') {
       return;
     }
 
@@ -25,7 +25,7 @@ const logger = {
   },
 
   exception(exception, stack = true, requestPath = null) {
-    if (process.env.BROWSER && process.env.VOLTRAN_ENV === 'prod') {
+    if (process.env.BROWSER && process.env.PIRAMITE_ENV === 'prod') {
       return;
     }
 

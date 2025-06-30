@@ -1,7 +1,7 @@
-import voltranConfig from '../../../voltran.config';
+import piramiteConfig from '../../../piramite.config';
 
 function generateInitialState(initialState, componentName) {
-  const prefix = voltranConfig.prefix.toUpperCase();
+  const prefix = piramiteConfig.prefix.toUpperCase();
   const include = `window.${prefix}.${componentName.toUpperCase().replace(/['"]+/g, '')}`;
 
   return `

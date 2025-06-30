@@ -1,11 +1,11 @@
 const normalizeUrl = require('../lib/os.js');
-const voltranConfig = require('../voltran.config');
+const piramiteConfig = require('../piramite.config');
 
 function getStyles () {
 	let styles = '';
 
-  for(var i = 0; i < voltranConfig.styles.length; i++) {
-    const style = normalizeUrl(voltranConfig.styles[i]);
+  for(var i = 0; i < piramiteConfig.styles.length; i++) {
+    const style = normalizeUrl(piramiteConfig.styles[i]);
     
     styles += `require('${style}');`;
   }

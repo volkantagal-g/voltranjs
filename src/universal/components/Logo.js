@@ -1,6 +1,6 @@
 import React from 'react';
-import VoltranLogo from '../../assets/voltran-logo.svg';
+import piramiteLogo from '../../assets/piramite-logo.svg';
 
-const Logo = (props) => <VoltranLogo {...props} />;
+const Logo = (props) => <piramiteLogo {...props} />;
 
 export default Logo; 

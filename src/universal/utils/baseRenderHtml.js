@@ -1,6 +1,6 @@
 const appConfig = require('__APP_CONFIG__');
 const assets = require('__ASSETS_FILE_PATH__');
-const voltranConfig = require('../../../voltran.config');
+const piramiteConfig = require('../../../piramite.config');
 import { QUERY_PARAMS } from './constants';
 
 const assetsBaseUrl = !appConfig.mediaUrl ? appConfig.baseUrl : '';
@@ -19,7 +19,7 @@ const readAsset = name => {
   return fs.readFileSync(
     path.resolve(
       process.cwd(),
-      `${voltranConfig.publicDistFolder}/${cleanAssetsPrefixFromAssetURI(name)}`
+      `${piramiteConfig.publicDistFolder}/${cleanAssetsPrefixFromAssetURI(name)}`
     ),
     'utf8'
   );
@@ -72,7 +72,7 @@ const getStyles = async (name, subComponentFiles, predefinedInitialState) => {
       href: `${assetsBaseUrl}${assets[name].css}`,
       criticalStyleComponent:
         process.env.NODE_ENV === 'production' &&
-        !voltranConfig.criticalCssDisabled &&
+        !piramiteConfig.criticalCssDisabled &&
         withCriticalCss
           ? cssContentCache[name]
           : null
@@ -85,7 +85,7 @@ const getStyles = async (name, subComponentFiles, predefinedInitialState) => {
       href: `${assetsBaseUrl}${assets.client.css}`,
       criticalStyleComponent:
         process.env.NODE_ENV === 'production' &&
-        !voltranConfig.criticalCssDisabled &&
+        !piramiteConfig.criticalCssDisabled &&
         withCriticalCss
           ? cssContentCache.client
           : null

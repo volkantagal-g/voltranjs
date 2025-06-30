@@ -18,29 +18,29 @@ const { createComponentName } = require("./src/universal/utils/helper.js");
 const packageJson = require(path.resolve(process.cwd(), "package.json"));
 
 const isBuildingForCDN = process.argv.includes("--for-cdn");
-const env = process.env.VOLTRAN_ENV || "local";
+const env = process.env.PIRAMITE_ENV || "local";
 
-const voltranConfig = require("./voltran.config");
-const appConfigFilePath = `${voltranConfig.appConfigFile.entry}/${env}.conf.js`;
+const piramiteConfig = require("./piramite.config");
+const appConfigFilePath = `${piramiteConfig.appConfigFile.entry}/${env}.conf.js`;
 const appConfig = require(appConfigFilePath);
 const commonConfig = require("./webpack.common.config");
 const postCssConfig = require("./postcss.config");
 const babelConfig = require("./babel.server.config");
 
-const voltranClientConfigPath = voltranConfig.webpackConfiguration.client;
-const voltranClientConfig = voltranClientConfigPath
-  ? require(voltranConfig.webpackConfiguration.client)
+const piramiteClientConfigPath = piramiteConfig.webpackConfiguration.client;
+const piramiteClientConfig = piramiteClientConfigPath
+  ? require(piramiteConfig.webpackConfiguration.client)
   : "";
 
 const normalizeUrl = require("./lib/os.js");
 const replaceString = require("./config/string.js");
 
-const fragmentManifest = require(voltranConfig.routing.dictionary);
+const fragmentManifest = require(piramiteConfig.routing.dictionary);
 
-const isDebug = voltranConfig.dev;
+const isDebug = piramiteConfig.dev;
 const reScript = /\.(js|jsx|mjs)$/;
-const distFolderPath = voltranConfig.distFolder;
-const prometheusFile = voltranConfig.monitoring.prometheus;
+const distFolderPath = piramiteConfig.distFolder;
+const prometheusFile = piramiteConfig.monitoring.prometheus;
 
 const chunks = {};
 
@@ -61,7 +61,7 @@ for (const index in fragmentManifest) {
 }
 
 const GO_PIPELINE_LABEL = process.env.GO_PIPELINE_LABEL || packageJson.version;
-const appConfigFileTarget = `${voltranConfig.appConfigFile.output.path}/${voltranConfig.appConfigFile.output.name}.js`;
+const appConfigFileTarget = `${piramiteConfig.appConfigFile.output.path}/${piramiteConfig.appConfigFile.output.name}.js`;
 
 fs.copyFileSync(appConfigFilePath, appConfigFileTarget);
 
@@ -92,9 +92,9 @@ if (isDebug) {
   chunks.client.push("webpack-hot-middleware/client");
 }
 
-const outputPath = voltranConfig.output.client.path;
+const outputPath = piramiteConfig.output.client.path;
 
-const clientConfig = merge(commonConfig, voltranClientConfig, {
+const clientConfig = merge(commonConfig, piramiteClientConfig, {
   name: "client",
 
   target: "web",
@@ -106,9 +106,9 @@ const clientConfig = merge(commonConfig, voltranClientConfig, {
   output: {
     path: outputPath,
     publicPath: `${appConfig.mediaUrl}/project/assets/`,
-    filename: voltranConfig.output.client.filename,
-    chunkFilename: voltranConfig.output.client.chunkFilename,
-    chunkLoadingGlobal: `WP_${voltranConfig.prefix.toUpperCase()}_VLTRN`
+    filename: piramiteConfig.output.client.filename,
+    chunkFilename: piramiteConfig.output.client.chunkFilename,
+    chunkLoadingGlobal: `WP_${piramiteConfig.prefix.toUpperCase()}_VLTRN`
   },
 
   module: {
@@ -126,7 +126,7 @@ const clientConfig = merge(commonConfig, voltranClientConfig, {
       {
         test: reScript,
         loader: "esbuild-loader",
-        include: [path.resolve(__dirname, "src"), voltranConfig.inputFolder],
+        include: [path.resolve(__dirname, "src"), piramiteConfig.inputFolder],
         options: {
           loader: "jsx",
           target: "es2015",
@@ -181,8 +181,8 @@ const clientConfig = merge(commonConfig, voltranClientConfig, {
             options: {
               modules: {
                 localIdentName: appConfig.isCssClassNameObfuscationEnabled
-                  ? `${voltranConfig.prefix}-[name]-[hash:base64]`
-                  : `${voltranConfig.prefix}-[path][name]__[local]`,
+                  ? `${piramiteConfig.prefix}-[name]-[hash:base64]`
+                  : `${piramiteConfig.prefix}-[path][name]__[local]`,
                 localIdentHashSalt: packageJson.name
               },
               importLoaders: 2,
@@ -202,13 +202,13 @@ const clientConfig = merge(commonConfig, voltranClientConfig, {
               }
             }
           },
-          ...(voltranConfig.sassResources
+          ...(piramiteConfig.sassResources
             ? [
               {
                 loader: "sass-resources-loader",
                 options: {
                   sourceMap: false,
-                  resources: voltranConfig.sassResources
+                  resources: piramiteConfig.sassResources
                 }
               }
             ]
@@ -270,8 +270,8 @@ const clientConfig = merge(commonConfig, voltranClientConfig, {
 
     new CopyWebpackPlugin([
       {
-        from: voltranConfig.output.client.publicPath,
-        to: voltranConfig.publicDistFolder
+        from: piramiteConfig.output.client.publicPath,
+        to: piramiteConfig.publicDistFolder
       }
     ]),
 
@@ -285,7 +285,7 @@ const clientConfig = merge(commonConfig, voltranClientConfig, {
       ]),
 
     new AssetsPlugin({
-      path: voltranConfig.inputFolder,
+      path: piramiteConfig.inputFolder,
       filename: "assets.json",
       prettyPrint: true
     }),

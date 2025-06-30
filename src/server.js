@@ -22,11 +22,11 @@ import { createCacheManagerInstance } from './universal/core/cache/cacheUtils';
 
 import { HTTP_STATUS_CODES } from './universal/utils/constants';
 
-import voltranConfig from '../voltran.config';
+import piramiteConfig from '../piramite.config';
 
 const {bundleAnalyzerStaticEnabled} = require('__APP_CONFIG__');
 
-const enablePrometheus = voltranConfig.monitoring.prometheus;
+const enablePrometheus = piramiteConfig.monitoring.prometheus;
 let Prometheus;
 
 if (enablePrometheus) {
@@ -105,7 +105,7 @@ const handleUrls = async (req, res, next) => {
 };
 
 const cors = async (req, res, next) => {
-  const { corsWhiteListDomains } = voltranConfig;
+  const { corsWhiteListDomains } = piramiteConfig;
   const { origin } = req.headers;
   if (origin && corsWhiteListDomains?.map(domain => domain?.includes(origin))) {
     res.setHeader('Access-Control-Allow-Origin', origin);
@@ -171,11 +171,11 @@ if (process.env.NODE_ENV === 'production') {
   hiddie.use(locals);
   hiddie.use(helmet());
   hiddie.use(cors);
-  hiddie.use('/', serveStatic(`${voltranConfig.distFolder}/public`));
+  hiddie.use('/', serveStatic(`${piramiteConfig.distFolder}/public`));
   bundleAnalyzerStaticEnabled &&
     hiddie.use(
       '/bundleAnalyze',
-      serveStatic(`${voltranConfig.distFolder}/public/project/assets/report.html`)
+      serveStatic(`${piramiteConfig.distFolder}/public/project/assets/report.html`)
     );
   hiddie.use(cookieParser());
   hiddie.use(utils);
@@ -190,7 +190,7 @@ if (process.env.NODE_ENV === 'production') {
   hiddie.use('/components/:components/:path*', renderMultiple);
   hiddie.use('/components/:components', renderMultiple);
   hiddie.use(render);
-  http.createServer(hiddie.run).listen(voltranConfig.port);
+  http.createServer(hiddie.run).listen(piramiteConfig.port);
 }
 
 export default () => {
@@ -198,7 +198,7 @@ export default () => {
     compression(),
     locals,
     helmet(),
-    serveStatic(`${voltranConfig.distFolder}/public`),
+    serveStatic(`${piramiteConfig.distFolder}/public`),
     cookieParser(),
     utils,
     handleUrls,

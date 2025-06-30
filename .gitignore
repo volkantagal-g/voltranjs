@@ -31,4 +31,4 @@ src/universal/appConfig.js
 package-lock.json
 yarn.lock
 demo
-voltran.config.js
+piramite.config.js

@@ -28,7 +28,7 @@ export const addCustomAttrsToNewrelic = message => {
       newrelic?.addCustomAttribute(`a_${key}`, parsedMessage[key]);
     }
   }
-  newrelic?.addCustomAttribute('a_voltran.error.message', message);
+  newrelic?.addCustomAttribute('a_piramite.error.message', message);
 };
 
 export default newrelic;

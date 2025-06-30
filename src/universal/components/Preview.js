@@ -13,11 +13,11 @@ export default (body, title = null) => {
         <title>Preview${additionalTitle}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script>window.HBUS_LAZY = true;</script>
-        <script src="${appConfig.voltranCommonUrl}"></script>
+        <script src="${appConfig.piramiteCommonUrl}"></script>
         ${cr(
           appConfig.showPreviewFrame,
           `<style>
-            .voltran-body {
+            .piramite-body {
               color: #484848;
               box-sizing: border-box;
               max-width: 1264px;
@@ -32,12 +32,12 @@ export default (body, title = null) => {
             }
 
             
-            .voltran-body.full {
+            .piramite-body.full {
               width: auto;
               padding: 0;
             }
 
-            .voltran-body.mobile {
+            .piramite-body.mobile {
               width: 415px;
               min-height: 827px;
               padding: 0;
@@ -49,7 +49,7 @@ export default (body, title = null) => {
               position: relative;
             }
 
-            .voltran-body.mobile:after {
+            .piramite-body.mobile:after {
               content: '';
               width: 48px;
               height: 48px;

@@ -77,8 +77,8 @@ export default async (req, res) => {
         .labels(componentName, isWithoutHTML(context.query) ? '1' : '0')
         .observe(Date.now() - res.locals.startEpoch);
     } else {
-      const voltranEnv = appConfig.voltranEnv || 'local';
-      const previewEnvControl = voltranEnv !== 'prod' && voltranEnv !== 'production';
+      const piramiteEnv = appConfig.piramiteEnv || 'local';
+      const previewEnvControl = piramiteEnv !== 'prod' && piramiteEnv !== 'production';
 
       if (previewEnvControl && isPreviewQuery) {
         res.status(statusCode).html(Preview([fullHtml].join('\n')));

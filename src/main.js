@@ -4,11 +4,11 @@ import cluster from 'cluster';
 import logger from './universal/utils/logger';
 import Hiddie from 'hiddie';
 import http from 'http';
-import voltranConfig from '../voltran.config';
+import piramiteConfig from '../piramite.config';
 import prom from 'prom-client';
 import {HTTP_STATUS_CODES} from './universal/utils/constants';
 
-const enablePrometheus = voltranConfig.monitoring.prometheus;
+const enablePrometheus = piramiteConfig.monitoring.prometheus;
 
 function triggerMessageListener(worker) {
   worker.on('message', function (message) {
@@ -43,7 +43,7 @@ if (cluster.isMaster) {
 
   if (enablePrometheus) {
     const aggregatorRegistry = new prom.AggregatorRegistry();
-    const metricsPort = voltranConfig.port + 1;
+    const metricsPort = piramiteConfig.port + 1;
 
     // eslint-disable-next-line consistent-return
     const hiddie = Hiddie(async (err, req, res) => {
@@ -57,7 +57,7 @@ if (cluster.isMaster) {
 
     http.createServer(hiddie.run).listen(metricsPort, () => {
       logger.info(
-        `Voltran ready on ${voltranConfig.port} with ${
+        `Piramite ready on ${piramiteConfig.port} with ${
           os.cpus().length
         } core, also /metrics ready on ${metricsPort}`
       );

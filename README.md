@@ -1,12 +1,12 @@
 <h1 align="center">
   <br>
-  <a><img src="./src/assets/voltran-logo.png" alt="voltran.js" width="220"></a>
+  <a><img src="./src/assets/voltran-logo.png" alt="piramite.js" width="220"></a>
   <br>
   Micro Frontends Framework
   <br>
 </h1>
 
-<h4 align="center">Voltran is a micro frontends framework which is developed by Technology Team. Micro frontends help cross functional teams to make end-to-end and independent developments and deployments.</h4>
+<h4 align="center">Piramite is a micro frontends framework which is developed by Technology Team. Micro frontends help cross functional teams to make end-to-end and independent developments and deployments.</h4>
 
  <br>
 
@@ -34,32 +34,32 @@ You can use Voltran if you need a micro frontend framework that provides followi
 
 Voltran requires [Node.js](https://nodejs.org/) v10.15.0+ to run.
 
-Install the Voltran.
+Install the Piramite.
 
 #### Yarn
 
 ```sh
-$ yarn add voltranjs
+$ yarn add piramitejs
 ```
 
 #### Npm
 
 ```sh
-$ npm install voltranjs
+$ npm install piramitejs
 ```
 
 ## Usage
 
 This is an example component.
 
-First of all, you should import `@voltran/core`.
+First of all, you should import `@piramite/core`.
 
 After that we can write the component's code.
 
 **HelloWorld.js**
 
 ```jsx
-const voltran = require('@voltran/core');
+const piramite = require('@piramite/core');
 
 import React from 'react';
 
@@ -71,7 +71,7 @@ const HelloWorld = ({ initialState }) => {
   return <>Hello World!</>;
 };
 
-const component = voltran.default.withBaseComponent(HelloWorld, ROUTE_PATHS.HELLOWORLDPAGE);
+const component = piramite.default.withBaseComponent(HelloWorld, ROUTE_PATHS.HELLOWORLDPAGE);
 
 export default component;
 ```
@@ -88,9 +88,9 @@ module.exports = {
   baseUrl: `http://localhost:${port}`,
   mediaUrl: '',
   services: {
-    voltranapi: {
-      clientUrl: 'http://voltran-api.qa.getir.com',
-      serverUrl: 'http://voltran-api.qa.getir.com'
+    piramiteapi: {
+      clientUrl: 'http://piramite-api.qa.getir.com',
+      serverUrl: 'http://piramite-api.qa.getir.com'
     }
   },
   timeouts: {
@@ -104,7 +104,7 @@ module.exports = {
 
 ```jsx
 
-const voltran = require('@voltran/core');
+const piramite = require('@piramite/core');
 
 import React from 'react';
 import appConfig from '../appConfig';
@@ -114,13 +114,13 @@ const ROUTE_PATHS = {
 };
 
 const HelloWorld = ({initialState}) => {
-    HelloWorld.services = [appConfig.services.voltranApi];
+    HelloWorld.services = [appConfig.services.piramiteApi];
 
-    HelloWorld.getInitialState = (voltranApiClientManager, context) => {
+    HelloWorld.getInitialState = (piramiteApiClientManager, context) => {
       const config = { headers: context.headers };
       const params = {...};
 
-      return getName({ params }, voltranApiClientManager, config);
+      return getName({ params }, piramiteApiClientManager, config);
     };
 
     return (
@@ -130,7 +130,7 @@ const HelloWorld = ({initialState}) => {
     );
 };
 
-const component = voltran.default.withBaseComponent(HelloWorld, ROUTE_PATHS.HELLOWORLDPAGE);
+const component = piramite.default.withBaseComponent(HelloWorld, ROUTE_PATHS.HELLOWORLDPAGE);
 
 export default component;
 
@@ -249,7 +249,7 @@ monitoring: {
 
 `It is required.`
 
-There may be different components owned by different teams using voltrans on the same page. Voltran needs to use a prefix in order to avoid conflicts issues.
+There may be different components owned by different teams using piramtes on the same page. Voltran needs to use a prefix in order to avoid conflicts issues.
 This prefix is prepended to initial states and CSS class names.
 
 > We recommend that each team use their own acronyms/prefixes.
@@ -317,7 +317,7 @@ Set to `false` if don't need to critical styles.
 
 #### webpackConfiguration
 
-You can add your webpack configuration. They will be merged with the voltran configs.
+You can add your webpack configuration. They will be merged with the piramites configs.
 
 #### sassResources
 

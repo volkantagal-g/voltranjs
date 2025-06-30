@@ -2,20 +2,20 @@ const path = require('path');
 const webpack = require('webpack');
 const {merge} = require('webpack-merge');
 const packageJson = require(path.resolve(process.cwd(), 'package.json'));
-const voltranConfig = require('./voltran.config');
+const piramiteConfig = require('./piramite.config');
 
 const reStyle = /\.(css|less|styl|scss|sass|sss)$/;
 const reImage = /\.(bmp|gif|jpg|jpeg|png)$/;
 const staticAssetName = '[name]-[contenthash].[ext]';
 
-const isDebug = voltranConfig.dev;
+const isDebug = piramiteConfig.dev;
 
-const voltranCommonConfigPath = voltranConfig.webpackConfiguration.common;
-const voltranCommonConfig = voltranCommonConfigPath
-  ? require(voltranConfig.webpackConfiguration.common)
+const piramiteCommonConfigPath = piramiteConfig.webpackConfiguration.common;
+const piramiteCommonConfig = piramiteCommonConfigPath
+  ? require(piramiteConfig.webpackConfiguration.common)
   : '';
 
-const commonConfig = merge(voltranCommonConfig, {
+const commonConfig = merge(piramiteCommonConfig, {
   mode: isDebug ? 'development' : 'production',
 
   output: {
@@ -75,7 +75,7 @@ const commonConfig = merge(voltranCommonConfig, {
 
   plugins: [
     new webpack.DefinePlugin({
-      VOLTRAN_API_VERSION: JSON.stringify(packageJson.version),
+      PIRAMITE_API_VERSION: JSON.stringify(packageJson.version),
       'process.env.GO_PIPELINE_LABEL': JSON.stringify(process.env.GO_PIPELINE_LABEL),
     }),
   ],

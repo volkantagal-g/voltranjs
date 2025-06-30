@@ -1,9 +1,9 @@
 /* istanbul ignore file */
 const { cleanDir } = require('./lib/fs');
-const voltranConfig = require('../../voltran.config');
+const piramiteConfig = require('../../piramite.config');
 
 function clean() {
-  return Promise.all([cleanDir(`${voltranConfig.distFolder}/*`, { nosort: true, dot: true })]);
+  return Promise.all([cleanDir(`${piramiteConfig.distFolder}/*`, { nosort: true, dot: true })]);
 }
 
 module.exports = clean;

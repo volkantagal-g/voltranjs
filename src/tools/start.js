@@ -7,7 +7,7 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 const webpackHotServerMiddleware = require('webpack-hot-server-middleware');
 const webpackClientConfig = require('../../webpack.client.config');
 const webpackServerConfig = require('../../webpack.server.config');
-const voltranConfig = require('../../voltran.config');
+const piramiteConfig = require('../../piramite.config');
 const run = require('./run');
 const clean = require('./clean');
 
@@ -43,11 +43,11 @@ async function start() {
     })
   );
 
-  http.createServer(hiddie.run).listen(voltranConfig.port);
+  http.createServer(hiddie.run).listen(piramiteConfig.port);
 
   compiler.hooks.done.tap('start.js__port-reporting', () => {
     setTimeout(() => {
-      console.log(`Voltran ready on ${voltranConfig.port}`);
+      console.log(`Piramite ready on ${piramiteConfig.port}`);
     }, PORT_REPORT_TIMEOUT);
   });
 

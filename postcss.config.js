@@ -3,12 +3,12 @@ const postCssFilters = require('pleeease-filters');
 const postCssPixrem = require('pixrem');
 const postCssInlineSvg = require('postcss-inline-svg');
 
-const voltranConfig = require('./voltran.config');
+const piramiteConfig = require('./piramite.config');
 
 module.exports = {
   plugins() {
     return [
-      postCssInlineSvg({path: voltranConfig.svgFolder}),
+      postCssInlineSvg({path: piramiteConfig.svgFolder}),
       postCssPixrem(),
       postCssFilters(),
       autoprefixer

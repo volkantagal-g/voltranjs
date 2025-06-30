@@ -5,5 +5,5 @@ import Eev from 'eev';
 
 if (!window.HbEventBus) {
   window.HbEventBus = new Eev();
-  window.voltran_project_version = process.env.APP_BUILD_VERSION || '1.0.0';
+  window.piramite_project_version = process.env.APP_BUILD_VERSION || '1.0.0';
 }
