@@ -23,7 +23,6 @@ export default async (req, res) => {
     .split('/')
     .filter(part => part);
   const componentPath = `/${pathParts.join('/')}`;
-
   const routeInfo = matchUrlInRouteConfigs(componentPath);
 
   if (routeInfo) {

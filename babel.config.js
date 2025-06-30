@@ -34,8 +34,6 @@ module.exports = api => {
           additionalLibraries: ['react-immutable-proptypes']
         }
       ]);
-    } else {
-      plugins.push('react-hot-loader/babel');
     }
 
     presets.push([

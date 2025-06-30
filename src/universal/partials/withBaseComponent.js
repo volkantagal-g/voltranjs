@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { hydrateRoot } from 'react-dom/client';
 
 import ClientApp from '../components/ClientApp';
 import { WINDOW_GLOBAL_PARAMS } from '../utils/constants';
@@ -35,15 +35,15 @@ const withBaseComponent = (PageComponent, pathName) => {
 
       const initialState = fragments[id].STATE;
 
-      ReactDOM.hydrate(
-        <ClientApp>
-          <PageComponent {...staticProps} initialState={initialState} history={history} />
-        </ClientApp>,
+      hydrateRoot(
         componentEl,
-        () => {
-          componentEl.style.pointerEvents = 'auto';
-          componentEl.setAttribute('voltran-hydrated', 'true');
-        }
+        <HydratedClientApp
+          PageComponent={PageComponent}
+          staticProps={staticProps}
+          initialState={initialState}
+          history={history}
+          componentEl={componentEl}
+        />
       );
     });
   }
@@ -52,5 +52,21 @@ const withBaseComponent = (PageComponent, pathName) => {
     return <PageComponent {...props} />;
   };
 };
+
+// Helper component to handle post-hydration logic
+function HydratedClientApp({ PageComponent, staticProps, initialState, history, componentEl }) {
+  React.useEffect(() => {
+    const el = componentEl;
+    if (el) {
+      el.style.pointerEvents = 'auto';
+      el.setAttribute('voltran-hydrated', 'true');
+    }
+  }, [componentEl]);
+  return (
+    <ClientApp>
+      <PageComponent {...staticProps} initialState={initialState} history={history} />
+    </ClientApp>
+  );
+}
 
 export default withBaseComponent;

@@ -119,7 +119,8 @@ const clientConfig = merge(commonConfig, voltranClientConfig, {
         include: [path.resolve(__dirname, "src"), voltranConfig.inputFolder],
         options: {
           loader: "jsx",
-          target: "es2015"
+          target: "es2015",
+          ...(isDebug ? { jsxDev: true } : {})
         }
       },
       {

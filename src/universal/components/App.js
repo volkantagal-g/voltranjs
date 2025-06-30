@@ -1,7 +1,5 @@
 import React, { PureComponent } from 'react';
-import { withRouter } from 'react-router';
 import { Switch } from 'react-router-dom';
-import { hot } from 'react-hot-loader';
 import PropTypes from 'prop-types';
 
 import { renderRoutes } from '../routes/routes';
@@ -65,5 +63,4 @@ App.defaultProps = {
   location: null
 };
 
-export { App };
-export default hot(module)(withRouter(App));
+export default App;
