@@ -35,19 +35,7 @@ const commonConfig = merge(voltranCommonConfig, {
           {
             issuer: reStyle,
             oneOf: [
-              // Inline lightweight SVGs as UTF-8 encoded DataUrl string
-              {
-                test: /\.svg$/,
-                type: 'asset',
-                use: 'svg-url-loader',
-                parser: {
-                  dataUrlCondition: {
-                    maxSize: 4096, // 4kb
-                  },
-                },
-              },
-
-              // Inline lightweight images as Base64 encoded DataUrl string
+              // Inline lightweight images as Base64 encoded DataUrl string (no svg)
               {
                 type: 'asset',
                 parser: {
@@ -58,13 +46,11 @@ const commonConfig = merge(voltranCommonConfig, {
               },
             ],
           },
-
           {
             type: 'asset/resource',
           },
         ],
       },
-
       {
         test: /\.(png|jpg|jpeg|gif)$/,
         type: 'asset',
@@ -74,7 +60,6 @@ const commonConfig = merge(voltranCommonConfig, {
           },
         },
       },
-
       {
         test: /\.(ttf|eot|otf|woff|woff2)$/,
         type: 'asset/resource',

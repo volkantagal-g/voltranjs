@@ -114,6 +114,16 @@ const clientConfig = merge(commonConfig, voltranClientConfig, {
   module: {
     rules: [
       {
+        test: /\.svg$/,
+        issuer: /\.[jt]sx?$/,
+        use: ['@svgr/webpack'],
+      },
+      {
+        test: /\.svg$/,
+        type: 'asset/resource',
+        issuer: { not: [/\.[jt]sx?$/] },
+      },
+      {
         test: reScript,
         loader: "esbuild-loader",
         include: [path.resolve(__dirname, "src"), voltranConfig.inputFolder],
@@ -204,7 +214,15 @@ const clientConfig = merge(commonConfig, voltranClientConfig, {
             ]
             : [])
         ]
-      }
+      },
+      {
+        test: /\.(png|jpe?g|gif|webp)$/i,
+        exclude: /\.svg$/,
+      },
+      {
+        test: /\.(woff2?|eot|ttf|otf)$/i,
+        exclude: /\.svg$/,
+      },
     ]
   },
 

@@ -49,6 +49,11 @@ const serverConfig = merge(commonConfig, voltranServerConfig, {
   module: {
     rules: [
       {
+        test: /\.svg$/,
+        issuer: /\.[jt]sx?$/,
+        use: ['@svgr/webpack'],
+      },
+      {
         test: /\.(js|jsx|mjs)$/,
         loader: 'esbuild-loader',
         include: [path.resolve(__dirname, 'src'), voltranConfig.inputFolder],
